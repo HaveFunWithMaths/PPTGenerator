@@ -219,16 +219,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function copyPrompt() {
     const promptText = document.getElementById('gemini-prompt').textContent;
-    navigator.clipboard.writeText(promptText).then(() => {
-        const btn = document.querySelector('.copy-btn');
-        btn.innerHTML = '<span class="copy-icon">✓</span> Copied!';
-        btn.classList.add('copied');
+    const btn = document.querySelector('.copy-btn');
+
+    // Try modern clipboard API first
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(promptText).then(() => {
+            showCopySuccess(btn);
+        }).catch(() => {
+            fallbackCopy(promptText, btn);
+        });
+    } else {
+        // Fallback for non-HTTPS or older browsers
+        fallbackCopy(promptText, btn);
+    }
+}
+
+function fallbackCopy(text, btn) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+
+    try {
+        document.execCommand('copy');
+        showCopySuccess(btn);
+    } catch (err) {
+        btn.innerHTML = '<span class="copy-icon">❌</span> Failed';
         setTimeout(() => {
             btn.innerHTML = '<span class="copy-icon">📋</span> Copy';
-            btn.classList.remove('copied');
         }, 2000);
-    });
+    }
+
+    document.body.removeChild(textarea);
 }
+
+function showCopySuccess(btn) {
+    btn.innerHTML = '<span class="copy-icon">✓</span> Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+        btn.innerHTML = '<span class="copy-icon">📋</span> Copy';
+        btn.classList.remove('copied');
+    }, 2000);
+}
+
 
 function removeFile() {
     document.getElementById('jsonFile').value = '';
