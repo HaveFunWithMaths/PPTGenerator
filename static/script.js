@@ -217,44 +217,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Initialize copy button event listener
+document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.querySelector('.copy-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', copyPrompt);
+    }
+});
+
 function copyPrompt() {
-    const promptText = document.getElementById('gemini-prompt').textContent;
+    const promptElement = document.getElementById('gemini-prompt');
     const btn = document.querySelector('.copy-btn');
 
-    // Try modern clipboard API first
+    if (!promptElement) {
+        console.error('Prompt element not found');
+        return;
+    }
+
+    const promptText = promptElement.innerText || promptElement.textContent;
+
+    // Try modern clipboard API first (requires HTTPS)
     if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(promptText).then(() => {
-            showCopySuccess(btn);
-        }).catch(() => {
-            fallbackCopy(promptText, btn);
-        });
+        navigator.clipboard.writeText(promptText)
+            .then(() => showCopySuccess(btn))
+            .catch((err) => {
+                console.log('Clipboard API failed, using fallback:', err);
+                fallbackCopy(promptText, btn);
+            });
     } else {
-        // Fallback for non-HTTPS or older browsers
+        // Fallback for HTTP or older browsers
         fallbackCopy(promptText, btn);
     }
 }
 
 function fallbackCopy(text, btn) {
+    // Create a temporary textarea element
     const textarea = document.createElement('textarea');
     textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    textarea.style.top = '0';
-    document.body.appendChild(textarea);
-    textarea.focus();
-    textarea.select();
 
+    // Make it invisible but still functional
+    textarea.setAttribute('readonly', '');
+    textarea.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
+
+    document.body.appendChild(textarea);
+
+    // Select the text
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
+
+    let success = false;
     try {
-        document.execCommand('copy');
-        showCopySuccess(btn);
+        success = document.execCommand('copy');
     } catch (err) {
-        btn.innerHTML = '<span class="copy-icon">❌</span> Failed';
-        setTimeout(() => {
-            btn.innerHTML = '<span class="copy-icon">📋</span> Copy';
-        }, 2000);
+        console.error('execCommand error:', err);
     }
 
     document.body.removeChild(textarea);
+
+    if (success) {
+        showCopySuccess(btn);
+    } else {
+        showCopyError(btn);
+    }
 }
 
 function showCopySuccess(btn) {
@@ -266,6 +290,12 @@ function showCopySuccess(btn) {
     }, 2000);
 }
 
+function showCopyError(btn) {
+    btn.innerHTML = '<span class="copy-icon">❌</span> Failed';
+    setTimeout(() => {
+        btn.innerHTML = '<span class="copy-icon">📋</span> Copy';
+    }, 2000);
+}
 
 function removeFile() {
     document.getElementById('jsonFile').value = '';
