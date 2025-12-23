@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to PowerPoint Generator</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">JSON to PPT</span> Generator
+                </h1>
+                <p class="hero-subtitle">Transform your JSON question data into beautiful PowerPoint presentations</p>
+            </div>
+            <div class="hero-glow"></div>
+        </header>
+
+        <main class="main-content">
+            <!-- Instructions Section -->
+            <section class="card instructions-card">
+                <div class="card-header">
+                    <span class="card-icon">📝</span>
+                    <h2>How to Generate JSON from PDF</h2>
+                </div>
+                <div class="card-body">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Go to Google Gemini</h3>
+                            <p>Visit <a href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a> and sign in with your Google account.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Attach Your PDF</h3>
+                            <p>Click the attachment icon and upload your PDF containing the questions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Use This Prompt</h3>
+                            <p>Copy and paste the following prompt:</p>
+                        </div>
+                    </div>
+                    
+                    <div class="prompt-box">
+                        <div class="prompt-header">
+                            <span>Prompt for Gemini</span>
+                            <button class="copy-btn" onclick="copyPrompt()">
+                                <span class="copy-icon">📋</span> Copy
+                            </button>
+                        </div>
+                        <pre class="prompt-text" id="gemini-prompt">Scan ALL pages of this PDF document carefully.
+
+Ignore any images, diagrams, or figures - focus only on text content.
+
+Convert all questions into a JSON array with the following format:
+[
+  {
+    "q": "Question text here",
+    "meta": "Year | Marks info"
+  }
+]
+
+IMPORTANT formatting rules:
+- Use LaTeX notation for mathematical expressions: $formula$
+- Subscripts: Use _{} e.g., H_{2}O for H₂O
+- Superscripts: Use ^{} e.g., x^{2} for x²
+- Fractions: Use \frac{numerator}{denominator}
+- Greek letters: Use \Delta, \Omega, \alpha, \beta, etc.
+- Arrows: Use \rightarrow for →, \leftarrow for ←
+- Math operators: Use \times, \div, \pm, \geq, \leq
+- For chemical equations, include reaction arrows as \rightarrow
+
+Extract the year/exam info and marks (if available) into the "meta" field.
+Number all questions Exactly same as the pdf.</pre>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Save the JSON</h3>
+                            <p>Copy Gemini's response and save it as a <code>.json</code> file on your computer.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Section -->
+            <section class="card upload-card">
+                <div class="card-header">
+                    <span class="card-icon">🚀</span>
+                    <h2>Generate Your Presentation</h2>
+                </div>
+                <div class="card-body">
+                    <form id="upload-form" enctype="multipart/form-data">
+                        <div class="upload-zone" id="upload-zone">
+                            <div class="upload-icon">📁</div>
+                            <p class="upload-text">Drag & drop your JSON file here</p>
+                            <p class="upload-subtext">or click to browse</p>
+                            <input type="file" id="jsonFile" name="jsonFile" accept=".json" hidden>
+                        </div>
+                        
+                        <div class="file-info" id="file-info" style="display: none;">
+                            <span class="file-icon">📄</span>
+                            <span class="file-name" id="file-name"></span>
+                            <button type="button" class="remove-file" onclick="removeFile()">✕</button>
+                        </div>
+                        
+                        <button type="submit" class="generate-btn" id="generate-btn" disabled>
+                            <span class="btn-text">Generate PowerPoint</span>
+                            <span class="btn-loader" style="display: none;"></span>
+                        </button>
+                    </form>
+                    
+                    <div class="message" id="message" style="display: none;"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built for seamless PDF to PPT conversion</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
