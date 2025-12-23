@@ -67,14 +67,17 @@
                         </div>
                         <pre class="prompt-text" id="gemini-prompt">Scan ALL pages of this PDF document carefully.
 
-Ignore any images, diagrams, or figures - focus only on text content.
+Ignore any images, diagrams, or figures - focus only on text content(Note: Text is not selectable in pdf).
 
 Convert all questions into a JSON array with the following format:
 [
-  {
-    "q": "Question text here",
-    "meta": "Year | Marks info"
-  }
+  {
+    "q": "1. Question text here",
+    "meta": "Year"
+  },{
+    "q": "2. Question text here Again",
+    "meta": "Year Again"
+  }
 ]
 
 IMPORTANT formatting rules:
@@ -87,8 +90,8 @@ IMPORTANT formatting rules:
 - Math operators: Use \times, \div, \pm, \geq, \leq
 - For chemical equations, include reaction arrows as \rightarrow
 
-Extract the year/exam info and marks (if available) into the "meta" field.
-Number all questions Exactly same as the pdf.</pre>
+Extract the year/exam info into the "meta" field.
+Number all questions Exactly same as the pdf and should be a part of "q" in json.</pre>
                     </div>
 
                     <div class="step">
