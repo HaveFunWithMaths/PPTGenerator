@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON to PowerPoint Generator</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PptxGenJS Library -->
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/PptxGenJS@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
+
 <body>
     <div class="app-container">
+
         <!-- Hero Section -->
         <header class="hero">
             <div class="hero-content">
@@ -32,10 +37,11 @@
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <h3>Go to Google Gemini</h3>
-                            <p>Visit <a href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a> and sign in with your Google account.</p>
+                            <p>Visit <a href="https://gemini.google.com" target="_blank"
+                                    rel="noopener">gemini.google.com</a> and sign in with your Google account.</p>
                         </div>
                     </div>
-                    
+
                     <div class="step">
                         <div class="step-number">2</div>
                         <div class="step-content">
@@ -43,7 +49,7 @@
                             <p>Click the attachment icon and upload your PDF containing the questions.</p>
                         </div>
                     </div>
-                    
+
                     <div class="step">
                         <div class="step-number">3</div>
                         <div class="step-content">
@@ -51,7 +57,7 @@
                             <p>Copy and paste the following prompt:</p>
                         </div>
                     </div>
-                    
+
                     <div class="prompt-box">
                         <div class="prompt-header">
                             <span>Prompt for Gemini</span>
@@ -84,7 +90,7 @@ IMPORTANT formatting rules:
 Extract the year/exam info and marks (if available) into the "meta" field.
 Number all questions Exactly same as the pdf.</pre>
                     </div>
-                    
+
                     <div class="step">
                         <div class="step-number">4</div>
                         <div class="step-content">
@@ -109,19 +115,19 @@ Number all questions Exactly same as the pdf.</pre>
                             <p class="upload-subtext">or click to browse</p>
                             <input type="file" id="jsonFile" name="jsonFile" accept=".json" hidden>
                         </div>
-                        
+
                         <div class="file-info" id="file-info" style="display: none;">
                             <span class="file-icon">📄</span>
                             <span class="file-name" id="file-name"></span>
                             <button type="button" class="remove-file" onclick="removeFile()">✕</button>
                         </div>
-                        
+
                         <button type="submit" class="generate-btn" id="generate-btn" disabled>
                             <span class="btn-text">Generate PowerPoint</span>
                             <span class="btn-loader" style="display: none;"></span>
                         </button>
                     </form>
-                    
+
                     <div class="message" id="message" style="display: none;"></div>
                 </div>
             </section>
@@ -135,4 +141,5 @@ Number all questions Exactly same as the pdf.</pre>
 
     <script src="/static/script.js"></script>
 </body>
+
 </html>

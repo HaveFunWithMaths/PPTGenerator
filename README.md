@@ -1,45 +1,14 @@
 # JSON to PPT Generator 🎨
 
-A web application that converts JSON question data into beautifully formatted PowerPoint presentations. Includes step-by-step instructions for generating JSON from PDFs using Google Gemini AI.
+A **fully static web application** that converts JSON question data into beautifully formatted PowerPoint presentations – now running entirely in your browser!
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Flask](https://img.shields.io/badge/Flask-3.0+-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+## ✨ New in Version 2.0 (Static Deployment)
+- **No Backend Needed**: All processing happens locally on your computer.
+- **Fast & Private**: Your data never leaves your device.
+- **GitHub Pages Ready**: Optimized for static hosting.
 
-## ✨ Features
-
-- **Modern Web Interface** - Dark theme with glassmorphism design
-- **Drag & Drop Upload** - Easy JSON file upload
-- **PDF to JSON Guide** - Detailed instructions using Google Gemini AI
-- **LaTeX Support** - Handles subscripts, superscripts, fractions, Greek letters, and arrows
-- **Instant Download** - Generate and download PPT in seconds
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Python 3.8 or higher
-- pip (Python package manager)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/HaveFunWithMaths/PPTGenerator.git
-   cd PPTGenerator
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the application**
-   ```bash
-   python app.py
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:5000`
+## 🚀 Live Demo
+Deploy it to your own GitHub Pages in minutes!
 
 ## 📖 How to Use
 
@@ -50,9 +19,10 @@ A web application that converts JSON question data into beautifully formatted Po
 4. Save the response as a `.json` file
 
 ### Step 2: Generate PowerPoint
-1. Upload your JSON file via drag-and-drop
-2. Click "Generate PowerPoint"
-3. Download your presentation
+1. Go to the website.
+2. Upload your JSON file via drag-and-drop.
+3. Click "Generate PowerPoint".
+4. The presentation will be created instantly in your browser.
 
 ## 📄 JSON Format
 
@@ -69,44 +39,20 @@ A web application that converts JSON question data into beautifully formatted Po
 ]
 ```
 
-### Supported LaTeX Formatting
-| Format | Syntax | Output |
-|--------|--------|--------|
-| Subscript | `H_{2}O` | H₂O |
-| Superscript | `x^{2}` | x² |
-| Fraction | `\frac{a}{b}` | (a/b) |
-| Greek | `\Delta`, `\Omega` | Δ, Ω |
-| Arrows | `\rightarrow` | → |
-
-## 📁 Project Structure
-
-```
-PPTGenerator/
-├── app.py                 # Flask backend
-├── generate_ppt.py        # PPT generation logic
-├── questions_data.py      # Sample data
-├── requirements.txt       # Dependencies
-├── templates/
-│   └── index.html         # Main page
-└── static/
-    ├── styles.css         # Styling
-    └── script.js          # Client-side logic
-```
-
 ## 🛠️ Tech Stack
-
-- **Backend**: Python, Flask
 - **Frontend**: HTML5, CSS3, JavaScript
-- **PPT Generation**: python-pptx
+- **PPT Generation**: [PptxGenJS](https://gitbrent.github.io/PptxGenJS/)
+
+## 🚀 GitHub Pages Deployment
+
+To host this yourself:
+1. Go to your repository settings on GitHub.
+2. Navigate to **Pages** in the left sidebar.
+3. Under **Build and deployment**, set Source to "Deploy from a branch".
+4. Select `main` branch and `/ (root)` folder.
+5. Click **Save**.
+
+Your site will be live at `https://HaveFunWithMaths.github.io/PPTGenerator/`
 
 ## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests.
-
----
-
-Made with ❤️ by [HaveFunWithMaths](https://github.com/HaveFunWithMaths)
+MIT License. Created by [HaveFunWithMaths](https://github.com/HaveFunWithMaths)
